@@ -1,0 +1,24 @@
+{
+  "testEnvironment": "node",
+  "extensionsToTreatAsEsm": [".js"],
+  "transform": {},
+  "testMatch": [
+    "**/__tests__/**/*.test.js"
+  ],
+  "collectCoverageFrom": [
+    "src/**/*.js",
+    "!src/server.js",
+    "!**/__tests__/**",
+    "!**/node_modules/**"
+  ],
+  "coverageDirectory": "coverage",
+  "coverageReporters": [
+    "text",
+    "lcov",
+    "html"
+  ],
+  "setupFilesAfterEnv": [
+    "./__tests__/setup/testDb.js"
+  ],
+  "testTimeout": 30000
+}

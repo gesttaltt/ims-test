@@ -1,7 +1,7 @@
 {
-  "name": "backend",
+  "name": "inventory-management-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend API for Inventory Management System Demo - showcasing Node.js, Express, MongoDB with comprehensive testing",
   "main": "src/server.js",
   "type": "module",
   "engines": {
@@ -11,7 +11,11 @@
     "build": "echo \"No build step necessary\"",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +31,12 @@
     "mongoose": "^8.12.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@types/jest": "^30.0.0",
+    "eslint": "^8.57.1",
+    "eslint-config-standard": "^17.1.0",
+    "jest": "^30.2.0",
+    "mongodb-memory-server": "^11.0.1",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.2.2"
   }
 }

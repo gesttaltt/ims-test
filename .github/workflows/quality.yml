@@ -1,0 +1,52 @@
+name: Code Quality
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm ci
+    
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Run ESLint on backend
+      run: |
+        cd backend
+        npx eslint . --format=json > eslint-backend.json || true
+    
+    - name: Run ESLint on frontend
+      run: |
+        cd frontend
+        npm run lint -- --format=json > eslint-frontend.json || true
+    
+    - name: Run Prettier check
+      run: |
+        npx prettier --check . || true
+    
+    - name: Check for TODO comments
+      run: |
+        grep -r "TODO" --include="*.js" --include="*.ts" --include="*.tsx" . || echo "No TODO comments found"
+    
+    - name: Check file sizes
+      run: |
+        find . -name "*.js" -o -name "*.ts" -o -name "*.tsx" | xargs ls -la | awk '$5 > 100000 {print $9 " is too large: " $5 " bytes"}'
